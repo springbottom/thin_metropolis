@@ -34,13 +34,14 @@ int main(int argc, char *argv[]){
     MCMC_step(1/LOWER);
   }
   for (double inverse_beta = LOWER; inverse_beta <= UPPER; inverse_beta += (UPPER-LOWER)/N){
-    fprintf(fp,"%f",inverse_beta);
+    fprintf(fp,"\n%f\n",inverse_beta);
+    energy = 0;
     for (int i = 0; i < ITER; i++){
-      MCMC_step(1/inverse_beta);
+      energy += MCMC_step(1/inverse_beta);
+      fprintf(fp,"%f",energy);
     }
   }
 
-  fprintf(fp,"test");
   fclose(fp);
   free(state);
   return 0;
@@ -76,7 +77,7 @@ int get_random_index(){
   return 1;
 }
 
-int MCMC_step(double beta){
+double MCMC_step(double beta){
   get_random_index();
 
   int place = get_index(state_index[0],state_index[1],0);
@@ -92,12 +93,12 @@ int MCMC_step(double beta){
   double new_energy = new_vector[0]*neighbor[0]+new_vector[1]*neighbor[1];
 
   if (rand_double() <= exp(beta*(old_energy-new_energy))){
-    fprintf(fp,"%f,",new_energy);
+    //fprintf(fp,"%f,",new_energy);
     state[place]   = new_vector[0];
     state[place+1] = new_vector[1];
-    return 1;
+    return new_energy - old_energy;
   }
-  fprintf(fp,"%f,",0.0);
-  return 1;
+  //fprintf(fp,"%f,",0.0);
+  return 0;
 
 }
