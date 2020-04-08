@@ -9,10 +9,10 @@ int N;         //the number of beta points to sample.
 int ITER;      //the number of iterations per lattice point, per beta.
 
 FILE *fp;
-int index[2];
+int state_index[2];
 int n1[2];
 int n2[2];
-double[2][L][2] state;
+double *state;
 
 
 double rand_double();
