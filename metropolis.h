@@ -13,6 +13,7 @@ FILE *fp;
 int state_index[2];
 int n1[2];
 int n2[2];
+int n3[2];
 double *state;
 double energy;
 
