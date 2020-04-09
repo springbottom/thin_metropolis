@@ -18,8 +18,9 @@ double *state;
 double energy;
 
 //Function declarations
+double H();
 double rand_double();
-double * update(FILE* fp, double beta, double old_vector[2], double neighbor[2]);
 int init_state();
 int get_index();
 double MCMC_step();
+int positive_modulo(int i, int n);
